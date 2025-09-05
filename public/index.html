@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adit API — Dokumentasi</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    body { max-width: 950px; margin: auto; padding: 2rem; }
+    header { text-align: center; margin-bottom: 2rem; }
+    .badge { background:#eef; color:#223; padding:2px 8px; border-radius:12px; font-size:.85rem; }
+    pre { background:#f6f8fa; padding:1rem; border-radius:8px; overflow:auto; }
+    code { background:#f3f3f3; padding:0 .3rem; border-radius:4px; }
+    table { width:100%; }
+    footer { margin-top:3rem; text-align:center; color:#666; }
+    .grid { display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .key { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📡 Adit API <span class="badge">Free tier</span></h1>
+    <p>Login/daftar dengan email & password untuk mendapatkan API key. Batas: 12 request/menit.</p>
+  </header>
+
+  <section>
+    <h2>Autentikasi</h2>
+    <p>Semua endpoint (kecuali <code>POST /api/register</code> dan <code>POST /api/login</code>) memerlukan header:</p>
+    <pre><code>x-api-key: &lt;API_KEY_KAMU&gt;</code></pre>
+    <div class="grid">
+      <article>
+        <h3>Register</h3>
+        <p><code>POST /api/register</code></p>
+        <pre><code>curl -X POST https://your-domain.vercel.app/api/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"rahasia"}'</code></pre>
+        <details>
+          <summary>Response</summary>
+          <pre><code>{
+  "success": true,
+  "message": "Registered",
+  "data": { "email": "user@example.com", "apiKey": "..." , "tier": "free" }
+}</code></pre>
+        </details>
+      </article>
+      <article>
+        <h3>Login</h3>
+        <p><code>POST /api/login</code></p>
+        <pre><code>curl -X POST https://your-domain.vercel.app/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"rahasia"}'</code></pre>
+        <details>
+          <summary>Response</summary>
+          <pre><code>{
+  "success": true,
+  "message": "Logged in",
+  "data": { "email": "user@example.com", "apiKey": "...", "tier": "free" }
+}</code></pre>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Endpoint</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Path</th>
+          <th>Deskripsi</th>
+          <th>Auth</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>GET</td><td><code>/api/health</code></td><td>Cek status API</td><td>API key</td></tr>
+        <tr><td>POST</td><td><code>/api/voucher</code></td><td>Buat voucher baru</td><td>API key</td></tr>
+        <tr><td>POST</td><td><code>/api/redeem</code></td><td>Redeem voucher</td><td>API key</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Contoh penggunaan</h2>
+    <h3>Cek health</h3>
+    <pre><code>curl -X GET https://your-domain.vercel.app/api/health \
+  -H "x-api-key: &lt;API_KEY&gt;"</code></pre>
+
+    <h3>Buat voucher</h3>
+    <pre><code>curl -X POST https://your-domain.vercel.app/api/voucher \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: &lt;API_KEY&gt;" \
+  -d '{"amount": 1000}'</code></pre>
+
+    <h3>Redeem voucher</h3>
+    <pre><code>curl -X POST https://your-domain.vercel.app/api/redeem \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: &lt;API_KEY&gt;" \
+  -d '{"code":"&lt;KODE&gt;"}'</code></pre>
+  </section>
+
+  <section>
+    <h2>Rate limit</h2>
+    <p>Free tier: maksimal 12 request per 1 menit per API key. Jika terlewati, akan menerima <code>429 Too Many Requests</code>. Gunakan header <code>Retry-After</code> untuk waktu coba lagi.</p>
+  </section>
+
+  <footer>
+    <p>© 2025 Adit API — Dibuat buat seru-seruan dan belajar. Upgrade ke DB buat production.</p>
+  </footer>
+</body>
+</html>
