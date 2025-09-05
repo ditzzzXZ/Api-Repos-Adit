@@ -1,0 +1,13 @@
+my-vercel-project/
+├─ api/
+│  ├─ _store.js
+│  ├─ _auth.js
+│  ├─ register.js
+│  ├─ login.js
+│  ├─ health.js
+│  ├─ voucher.js
+│  └─ redeem.js
+├─ public/
+│  └─ index.html
+├─ package.json
+└─ vercel.json
