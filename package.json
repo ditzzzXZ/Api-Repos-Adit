@@ -1,0 +1,9 @@
+{
+  "name": "adit-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "node server.js"
+  }
+}
